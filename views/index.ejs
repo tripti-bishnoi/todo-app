@@ -3,12 +3,30 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title>My Day</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div class="task-container">
+    <div id="sidebar" class="sidebar">
+      <div id="months-container"></div>
+      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+    <div id="main" class="main">
+      <div class="container">
+      <fieldset>
+        <p>Today you have <%= todayTaskCount %> pending tasks.</p>
+        <form action="/" method="post">
+          <input id="desc" name="desc" type="text" class="ghost-input" placeholder="Add a to-do" autocomplete="off" />
+        </form>
+      </fieldset>
+      </div>
+      <div class="task-container">
+        <dl></dl>
+      </div>
+    </div>
+
+   <!--  <div class="task-container">
       <dl></dl>
     </div>
 
@@ -16,17 +34,18 @@
       <fieldset>
 
         <form action="/" method="post">
-          <input id="task" name="task" type="text" class="ghost-input" placeholder="Add a to-do"/>
+          <input id="desc" name="desc" type="text" class="ghost-input" placeholder="Add a to-do" autocomplete="off" />
         </form>
-        <!-- <% if(weather !== null){ %>
-          <p><%= weather %></p>
-        <% } %>
-
-        <% if(error !== null){ %>
-          <p><%= error %></p>
-        <% } %> -->
+        <p>Today you have <%= todayTaskCount %> pending tasks.</p>
       </fieldset>
     </div>
+
+    <div id="months-container"></div>
+
+    <div class="page-header text-center">
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div> -->
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/tasks.js"></script>
   </body>
