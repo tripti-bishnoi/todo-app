@@ -38,8 +38,9 @@ app.use(flash()); //use connect-flash for flash messages stored in session
 require('./routes')(app, passport);
 
 //launch ======================================
-app.listen(3000, ()=>{
- 	console.log('The magic happens on 3000...');
+var port = process.env.PORT || 3000;
+app.listen(port, ()=>{
+ 	console.log(`The magic happens on ${port}...`);
 });
 
 // MongoClient.connect(configdb.url, (err,database)=>{
