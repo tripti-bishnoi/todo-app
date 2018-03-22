@@ -1,0 +1,3 @@
+module.exports = {
+	url : 'mongodb://tripti-app:tripti320@ds263138.mlab.com:63138/tripti_app_db'
+};

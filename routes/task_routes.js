@@ -44,13 +44,6 @@ module.exports = function(app, passport) {
         failureRedirect : '/'
     }));
 
-    //PROFILE SECTION ================================
-    //want this protected, so you have to login
-    //will use route middleware for this, isLoggedIn function
-    // app.get('/profile', isLoggedIn, (req, res)=>{
-    //     res.render('profile', {user : req.user}); //get the user out of session and pass to template
-    // });
-
     //LOGOUT ================================
     app.get('/logout', (req,res)=>{
         req.logout();
@@ -63,18 +56,17 @@ module.exports = function(app, passport) {
         yesterday.setDate(yesterday.getDate() - 1);
         var today = new Date();
 
-        Task.count({ "completedFlag" : false, user : req.user, addedOn: {"$gte": yesterday, "$lt": today} }, (err, count)=>{
+        Task.find({ "completedFlag" : false, user : req.user }, (err, result)=>{
             if(err) throw err;
-            countVar = count;
-            res.render('index', {todayTaskCount : count});
+            var count = 0;
+            console.log(result);
+            result.forEach((r)=>{
+                if(r.addedOn >= yesterday && r.addedOn <= today){
+                    count += 1;
+                }
+            });
+            res.render('index', {todayTaskCount : count, totalTaskCount: result.length});
         });
-        // var query = { "completed_flag" : false};
-        // db.collection('task_details').count(query, (err, result)=>{
-        //     if(err) return console.log(`Error occured while counting: ${err}`);
-        //     else {
-        //         res.render('index', {todayTaskCount : result});
-        //     }
-        // });
     });
 
     app.get('/tasks-api', isLoggedIn, (req, res)=>{
@@ -91,13 +83,6 @@ module.exports = function(app, passport) {
             if(err) throw err;
             res.json(result);
         });
-
-        // db.collection('task_details').find({}).toArray((err, result)=>{
-        //     if(err) return console.log(`Error occured while finding all documents: ${err}`);
-        //     else {
-        //         res.json(result);
-        //     }
-        // });
     });
 
     app.post('/tasks-api', isLoggedIn, (req, res) => {
@@ -111,61 +96,19 @@ module.exports = function(app, passport) {
             if(err) throw err;
             return newTask;
         });
-
-        // db.collection('task_details').insert(task, (err, result)=>{
-        //     if(err) return console.log(`Error occured while inserting: ${err}`);
-        // });
     });
 
     app.put('/tasks-api/:taskdesc', isLoggedIn, (req, res) => {
         Task.update({ desc : req.params.taskdesc, user : req.user}, {desc : req.params.taskdesc, completedFlag: true}, (err, result) => {
             if(err) throw err;
         });
-
-        // var query = { "desc" : req.params.taskdesc };
-        // var task = {desc : req.params.taskdesc, completed_flag: true};
-        // db.collection('task_details').update(query, task, (err, result)=>{
-        //     if(err) return console.log(`Error occured while updating: ${err}`);
-        // });
     });
 
-    app.get('/monthlyTasks-api', isLoggedIn, (req, res)=>{
-        Task.aggregate([
-            { $match: {user : req.user._id}},
-            { $unwind: '$addedOn' },
-            { $project: {
-                _id: 0,
-                desc: 1,
-                completedFlag: 1,
-                addedOn: 1,
-                user: 1
-            }},
-            { $group : {
-                _id : {
-                    month: { $month: '$addedOn' }},
-                total: {$sum: 1}
-            }},
-            {"$sort": { "month": 1 }}
-        ], (err, result)=>{ 
+    app.get('/todoList', isLoggedIn, (req, res)=>{
+        Task.find({ user : req.user }, (err, result)=>{
             if(err) throw err;
             res.json(result);
         });
-    });
-
-    app.get('/monthlyTasks-api/:monthNum', isLoggedIn, (req, res)=>{
-        Task.aggregate([
-            {$project: {
-                _id: 0,
-                desc: 1,
-                completedFlag: 1,
-                month: {$month: '$addedOn'},
-                user: 1
-            }},
-            {$match: {month: parseInt(req.params.monthNum) }}
-            ], (err, result)=>{
-                if(err) throw err;
-                res.json(result);
-            });
     });
 
 };
