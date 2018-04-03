@@ -2,20 +2,28 @@ var Task = require('../models/taskDetails');
 
 module.exports = function(app, passport) {
     //HOME ================================
-    app.get('/', (req, res)=>{
-        res.render('home', {taskCount : 0});
-    });
+    // app.get('/', (req, res)=>{
+    //     res.render('login');
+    // });
 
     //LOGIN ================================
     //show login form
-    app.get('/login', (req, res)=>{
-        res.render('login', {message : req.flash('loginMessage')}); //passing any flash data if exists
+    app.get('/', (req, res)=>{
+        
+        var king = ["Ned", "Stark", 40, "Lord of Winterfell"];
+
+for (let x of king) {
+
+console.log(x);
+
+}
+        res.render('home', {message : req.flash('loginMessage')}); //passing any flash data if exists
     });
 
     //process login form
     app.post('/login', passport.authenticate('local-login',{
         successRedirect : '/profile',
-        failureRedirect : '/login',
+        failureRedirect : '/',
         failureFlash : true
     }));
 
@@ -59,7 +67,6 @@ module.exports = function(app, passport) {
         Task.find({ "completedFlag" : false, user : req.user }, (err, result)=>{
             if(err) throw err;
             var count = 0;
-            console.log(result);
             result.forEach((r)=>{
                 if(r.addedOn >= yesterday && r.addedOn <= today){
                     count += 1;

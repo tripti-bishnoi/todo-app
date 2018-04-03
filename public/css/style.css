@@ -2,10 +2,18 @@ body {
   width: 800px;
   margin: 0 auto;
   font-family: 'Open Sans', sans-serif;
+  background-image: url("notebook.jpg");
+  background-color: #cccccc;
+  background-size: 125%;
 }
 .container {
   width: 600px;
   margin: 0 auto;
+    color: gray;
+    font-size: 20px;
+}
+label{
+  display: -webkit-box;
 }
 fieldset {
   display: block;
@@ -24,7 +32,19 @@ fieldset {
   min-width: -webkit-min-content;
   padding: 30px;
 }
-.ghost-input, p {
+p {
+  position: relative;
+  right: 200px;
+  color: black;
+  font-weight:300;
+  width: 100%;
+  font-size: 20px;
+  border:0px;
+  outline: none;
+  width: 100%;
+  font-family: Open Sans,Verdana;
+  }
+.ghost-input{
   display: block;
   font-weight:300;
   width: 100%;
@@ -49,11 +69,8 @@ fieldset {
 .ghost-input:focus {
   border-bottom:1px solid #ddd;
 }
-p {
-  color: #E64A19;
-}
 .todo-text-through{
-  color: grey;
+  color: maroon;
   text-decoration: line-through;
 }
 dt{
@@ -66,16 +83,27 @@ dt{
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 0;
+    right: 0;
+    color: white;
     overflow-x: hidden;
     padding-top: 20px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 15px;
+    color: white;
+    text-align: center;
 }
 
 .sidebar a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 15px;
-    color: #818181;
+    color: white;
     display: block;
 }
 

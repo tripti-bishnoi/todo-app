@@ -6,47 +6,41 @@
     <title>My Day</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <div id="sidebar" class="sidebar">
-      <a href="/profile" target="_blank" class="btn btn-default btn-sm">My Day</a>
-      <a href="/todoList" target="_blank" class="btn btn-default btn-sm">To Do (<%= totalTaskCount %>)</a>
-      <br>
+      <!-- <a href="/profile" target="_blank" class="btn btn-default btn-sm" style="color: white">My Day</a>
+      <a href="/todoList" target="_blank" class="btn btn-default btn-sm" style="color: white">Pending Tasks (<%= totalTaskCount %>)</a>
+      <br> -->
       <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
     <div id="main" class="main">
       <div class="container">
+        <div class="jumbotron text-center">
       <fieldset>
-        <p>Today you have <%= todayTaskCount %> pending tasks.</p>
+        <p style="color: white">Today you have <%= todayTaskCount %> pending tasks.</p>
         <form action="/" method="post">
           <input id="desc" name="desc" type="text" class="ghost-input" placeholder="Add a to-do" autocomplete="off" />
         </form>
       </fieldset>
-      </div>
-      <div class="task-container">
+      
+      <div class="task-container" style="color: white">
         <dl></dl>
       </div>
+      </div>
+    </div>
     </div>
 
-   <!--  <div class="task-container">
-      <dl></dl>
+    <div class="footer">
+  &copy; Tripti Bishnoi - This ToDo App is my personal project.
+    <div>Technologies used: Node.JS, Express, MongoDB, Passport, Javascript, JQuery, HTML, CSS, Yarn, NPM, Deployed on Heroku, GitHub. 
+    <a href="https://www.linkedin.com/in/tripti-bishnoi/" target="_blank"><i class="fa fa-linkedin-square" style="font-size:24px;color:white"></i></a>
+    <a href="https://github.com/tripti-bishnoi/todo-app" target="_blank"><i class="fa fa-github" style="font-size:24px;color:white"></i></a>
     </div>
 
-    <div class="container">
-      <fieldset>
-
-        <form action="/" method="post">
-          <input id="desc" name="desc" type="text" class="ghost-input" placeholder="Add a to-do" autocomplete="off" />
-        </form>
-        <p>Today you have <%= todayTaskCount %> pending tasks.</p>
-      </fieldset>
-    </div>
-
-    <div id="months-container"></div>
-
-    <div class="page-header text-center">
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div> -->
+  P.S. This is a work in progress...
+</div>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/tasks.js"></script>
