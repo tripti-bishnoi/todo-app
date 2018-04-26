@@ -9,14 +9,6 @@ module.exports = function(app, passport) {
     //LOGIN ================================
     //show login form
     app.get('/', (req, res)=>{
-        
-        var king = ["Ned", "Stark", 40, "Lord of Winterfell"];
-
-for (let x of king) {
-
-console.log(x);
-
-}
         res.render('home', {message : req.flash('loginMessage')}); //passing any flash data if exists
     });
 
